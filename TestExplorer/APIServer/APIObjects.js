@@ -18,7 +18,7 @@ async function postMethod() {
       },
     );
 
-  //Expectation get result = 200
+  //Expectation get result = 200 and body is equal
   expect(response.status).to.equal(200);
   expect(response.body.name).to.equal("MSI Notebook 01");
   expect(response.body.data.year).to.equal(2024);
@@ -48,7 +48,7 @@ async function putMethod(id) {
         color:"pink"
         },
       })
-      //Assertion based on the response
+      //Expectation get result = 200 and body is equal
       expect(response.status).to.equal(200); 
       expect(response.body.data.color).to.equal("pink");
       expect(response.body.name).to.equal("MSI Notebook 01 New");
@@ -72,5 +72,24 @@ async function getMethod(id) {
   console.log("body after GET:", response.body);
 }
 
+async function patchMethod(id) {
+  const response = await request(url)
+    .patch(`objects/${id}`)
+    .send({
+      "name" : "MSI Notebook Patch" //change name
+    })
+  // Assertion based on the response
+  expect(response.status).to.equal(200);
+  expect(response.body.name).to.equal("MSI Notebook Patch");
+  console.log("body after PATCH:", response.body);
+}
 
-module.exports = { postMethod , putMethod , getMethod };
+async function deleteMethod(id) {
+  const response = await request(url)
+    .delete(`/objects/${id}`)
+    expect(response.body.message).to.equal(
+      `Object with id = ${id} has been deleted.`
+    )
+    console.log(response.body.message)
+}
+module.exports = { postMethod , putMethod , getMethod , patchMethod , deleteMethod };

@@ -1,0 +1,9 @@
+{
+    name: "MSI Notebook 01",
+    data: {
+       year: 2024,
+       price: 2300,
+       CPU: "Intel Core i5",
+       Hard: "1 TB"
+    }
+}
