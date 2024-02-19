@@ -1,4 +1,10 @@
-const { postMethod, putMethod, getMethod, patchMethod, deleteMethod, postPayloadMethod } = require("../APIServer/APIObjects");
+//const { postMethod, putMethod, getMethod, patchMethod, deleteMethod, postPayloadMethod } = require("../APIServer/APIObjects");
+const { postMethod } = require("../APIServer/postTest");
+const { postPayloadMethod } = require("../APIServer/postpayloadTest");
+const { putMethod } = require("../APIServer/putTest");
+const { patchMethod } = require("../APIServer/patchTest");
+const { deleteMethod } = require("../APIServer/deleteTest");
+const { getMethod } = require("../APIServer/getTest");
 
 //test suites
 
