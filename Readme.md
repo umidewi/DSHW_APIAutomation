@@ -17,7 +17,7 @@ This API Automation using (https://restful-api.dev/) as a system.
 You need to have the following installed in your machine:
 
 1. [NodeJS](https://nodejs.org/en/download)
-2. npm. npm install -g npm
+2. npm. `npm install -g npm`
 3. `mocha` framework is used for writing tests and `chai` for assertions, following command should help to install the required npm packages:
    - Install supertest package: `npm install supertest --save-dev`
    - Install mochaframework: `npm install mocha --save-dev`
