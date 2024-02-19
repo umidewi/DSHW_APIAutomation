@@ -5,8 +5,7 @@ const baseUrl = require("../GlobalVariable/BaseURL");
 
 const url = baseUrl; //Define Global Variable
 
-//example use payload method
-
+//example if use payload method
 async function postPayloadMethod() {
   //Load payload from JSON file
   const payloadPath = path.join(__dirname,"..", "payload", "postPayload.json");
