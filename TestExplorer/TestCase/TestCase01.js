@@ -6,7 +6,7 @@ const { patchMethod } = require("../APIServer/patchTest");
 const { deleteMethod } = require("../APIServer/deleteTest");
 const { getMethod } = require("../APIServer/getTest");
 
-//test suites
+//Test Suites
 
 // Test Case POST using payload method
 describe("Testing API restful", function () {
