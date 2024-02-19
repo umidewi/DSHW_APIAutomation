@@ -1,38 +1,59 @@
 const request = require("supertest"); // Import SuperTest
 const { expect } = require("chai"); // Import Chai
+const path = require("path");
 const baseUrl = require("../GlobalVariable/BaseURL");
 
 const url = baseUrl; //Define Global Variable
 
-async function postMethod() {
-  const response = await request(url)
-    .post("/objects")
-    .send({
-      name: "MSI Notebook 01",
-      data: {
-         year: 2024,
-         price: 2300,
-         CPU: "Intel Core i5",
-         Hard: "1 TB"
-      }
-      },
-    );
+//example use payload method
 
-  //Expectation get result = 200 and body is equal
-  expect(response.status).to.equal(200);
-  expect(response.body.name).to.equal("MSI Notebook 01");
-  expect(response.body.data.year).to.equal(2024);
-  expect(response.body.data.price).to.equal(2300);
-  expect(response.body.data.CPU).to.equal("Intel Core i5");
-  expect(response.body.data.Hard).to.equal("1 TB");
-  expect(response.body.createdAt).to.not.be.null;
-  
-  //Save ID get from post method body
-  console.log(response.body)
-  const id = response.body.id;
-  console.log("id After POST:", id);
-  return id; //Return the id
+async function postPayloadMethod() {
+  //Load payload from JSON file
+  const payloadPath = path.join(__dirname,"..", "payload", "postPayload.json");
+  const payload = require(payloadPath);
+
+  const response = await request(url)
+  .post("/objects")
+  .send(payload)
+expect(response.status).to.equal(200);
+expect(response.body).to.deep.include(payload);
+expect(response.body.createdAt).to.not.be.null;
+console.log(response.body)
+const id = response.body.id;
+console.log("id After POST:", id);
+return id; //Return the id
+
 }
+
+// async function postMethod() {
+//   const response = await request(url)
+//     .post("/objects")
+//     .send({
+//       name: "MSI Notebook 01",
+//       data: {
+//          year: 2024,
+//          price: 2300,
+//          CPU: "Intel Core i5",
+//          Hard: "1 TB"
+//       }
+//       },
+//     );
+
+//   //Expectation get result = 200 and body is equal
+//   expect(response.status).to.equal(200);
+//   expect(response.body.name).to.equal("MSI Notebook 01");
+//   expect(response.body.data.year).to.equal(2024);
+//   expect(response.body.data.price).to.equal(2300);
+//   expect(response.body.data.CPU).to.equal("Intel Core i5");
+//   expect(response.body.data.Hard).to.equal("1 TB");
+//   expect(response.body.createdAt).to.not.be.null;
+  
+//   //Save ID get from post method body
+//   console.log(response.body)
+//   const id = response.body.id;
+//   console.log("id After POST:", id);
+//   return id; //Return the id
+// }
 
 async function putMethod(id) {
   console.log("id to PUT:", id);
@@ -92,4 +113,4 @@ async function deleteMethod(id) {
     )
     console.log(response.body.message)
 }
-module.exports = { postMethod , putMethod , getMethod , patchMethod , deleteMethod };
+module.exports = { postPayloadMethod , putMethod , getMethod , patchMethod , deleteMethod };
