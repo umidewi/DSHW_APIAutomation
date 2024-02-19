@@ -4,24 +4,6 @@ const baseUrl = require("../GlobalVariable/BaseURL");
 
 const url = baseUrl; //Define Global Variable
 
-// async function getMethod() {
-//   const response = await request(url).get("/objects/");
-
-//   //Assertation / Verification
-//   expect(response.status).to.equal(200);
-//   console.log(response.body);
-// }
-
-// async function getMethod(id) {
-//   const response = await request(url).get(`/objects/`);
-
-//   //Assertation / Verification
-//   expect(response.status).to.equal(200);
-//   expect(response.body.id).to.equal(id);
-//  // expect(response.body.name).to.equal("Umi Dewi 01");
-//   console.log(response.body);
-// }
-
 async function postMethod() {
   const response = await request(url)
     .post("/objects")
@@ -46,31 +28,49 @@ async function postMethod() {
   expect(response.body.createdAt).to.not.be.null;
   
   //Save ID get from post method body
+  console.log(response.body)
   const id = response.body.id;
   console.log("id After POST:", id);
-  return id; //Return the id;
-  //expect(response.body.name).to.equal("Umi Dewi");
-  console.log(response.body.id)
-  console.log(response.body);
+  return id; //Return the id
 }
 
-async function putMethod() {
-  const response = await request(url).put(`/objects`)
-      .send({
-        name: "MSI Notebook 01 New",
-        data: {
-           year: 2024,
-           price: 2300,
-           CPU: "Intel Core i5",
-           Hard: "1 TB",
-           color:"pink"
-           },
+async function putMethod(id) {
+  console.log("id to PUT:", id);
+  const response = await request(url)
+    .put(`/objects/${id}`)
+    .send({
+      name: "MSI Notebook 01 New",
+      data: {
+        year: 2024,
+        price: 2300,
+        CPU: "Intel Core i5",
+        Hard: "1 TB",
+        color:"pink"
+        },
       })
       //Assertion based on the response
       expect(response.status).to.equal(200); 
       expect(response.body.data.color).to.equal("pink");
       expect(response.body.name).to.equal("MSI Notebook 01 New");
+      //console.log(response.body)
+      console.log("body after PUT:", response.body);
+}
+
+async function getMethod(id) {
+  console.log("id to GET:", id);
+  const response = await request(url)
+  .get(`/objects/${id}`);
+
+  //Assertation / Verification
+  expect(response.status).to.equal(200);
+  expect(response.body.name).to.equal("MSI Notebook 01 New");
+  expect(response.body.data.year).to.equal(2024);
+  expect(response.body.data.price).to.equal(2300);
+  expect(response.body.data.CPU).to.equal("Intel Core i5");
+  expect(response.body.data.Hard).to.equal("1 TB");
+  expect(response.body.data.color).to.equal("pink");
+  console.log("body after GET:", response.body);
 }
 
 
-module.exports = { postMethod , putMethod};
+module.exports = { postMethod , putMethod , getMethod };

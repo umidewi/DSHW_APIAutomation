@@ -1,4 +1,4 @@
-const { postMethod, putMethod } = require("../APIServer/APIObjects");
+const { postMethod, putMethod, getMethod } = require("../APIServer/APIObjects");
 
 //test suites
 describe("Testing API restful", function () {
@@ -11,11 +11,15 @@ let id;
   // });
 
   it("Test POST from Function", async function () {
-    await postMethod();
+    id = await postMethod();
   });
 
-  // it("Test PUT from Function", async function () {
-  //   await putMethod();
-  // });
+  it("Test PUT from Function", async function () {
+    await putMethod(id);
+  });
+  
+  it("Test GET from Function", async function () {
+    await getMethod(id);
+  });
 
 });
